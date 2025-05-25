@@ -1,0 +1,27 @@
+# Python virtual environment
+venv/
+/venv/ # Kadang perlu garis miring di depan juga untuk direktori
+*.pyc
+__pycache__/
+
+# Database
+*.db
+*.sqlite3
+stock_data.db 
+
+# KerasTuner results
+tuning_dir/
+/tuning_dir/
+
+# Saved models (Jika Anda TIDAK ingin menyimpannya di Git)
+# Jika ingin menyimpan model di Git (seperti untuk GitHub Actions), JANGAN uncomment baris di bawah
+saved_models/
+/saved_models/
+
+# IDE specific
+.vscode/
+.idea/
+
+# OS specific
+.DS_Store
+Thumbs.db
