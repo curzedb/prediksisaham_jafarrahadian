@@ -112,6 +112,9 @@ Anda bisa memantau status eksekusi Actions di tab "Actions" pada halaman reposit
 * **Folder `tuning_dir`:** Dibuat oleh KerasTuner. Anda bisa menghapusnya jika ingin memulai tuning dari awal, tetapi ini juga berarti proses tuning akan lebih lama.
 * **Folder `saved_models` dan `stock_data.db`:** Akan dibuat secara otomatis saat aplikasi pertama kali dijalankan dan menyimpan data atau model.
 
+Anda juga dapat mengunjungi situs ini untuk coba langsung APP:
+https://prediksisahamjafarrahadian.streamlit.app/
+
 ## Lisensi
 
 MIT License
