@@ -1,0 +1,48 @@
+name: Pelatihan Model Mingguan Otomatis
+
+on:
+  workflow_dispatch: # Memungkinkan trigger manual dari tab Actions di GitHub
+  schedule:
+    # Menjalankan setiap hari Minggu jam 00:00 UTC (07:00 WIB)
+    - cron: '0 0 * * 0'
+
+jobs:
+  train-models:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ticker: ['^JKSE', 'BBCA.JK'] # Daftar ticker yang ingin dilatih
+        model: ['LSTM', 'CNN', 'GRU']  # Daftar model yang ingin dilatih untuk setiap ticker
+    
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          # keras-tuner mungkin perlu diinstal eksplisit di sini jika tidak selalu ada di reqs
+          pip install keras-tuner 
+
+      - name: Latih Model ${{ matrix.model }} untuk Ticker ${{ matrix.ticker }}
+        run: python run_scheduled_training.py --ticker "${{ matrix.ticker }}" --model "${{ matrix.model }}"
+
+      - name: Commit dan Push model yang diperbarui
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add saved_models/
+          git add tuning_dir/ # KerasTuner mungkin menyimpan hasil tuning di sini
+          # Cek apakah ada perubahan untuk di-commit
+          if git diff --staged --quiet; then
+            echo "Tidak ada perubahan pada model untuk di-commit."
+          else
+            git commit -m "Update model terlatih otomatis: ${{ matrix.ticker }} - ${{ matrix.model }}"
+            git push
+          fi
