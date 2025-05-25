@@ -20,7 +20,7 @@ Aplikasi web interaktif yang dibangun dengan Streamlit untuk menganalisis data h
 
 ## Teknologi yang Digunakan
 
-* **Bahasa Pemrograman:** Python 3.9+
+* **Bahasa Pemrograman:** Python 3.10.11
 * **Framework Aplikasi Web:** Streamlit
 * **Analisis & Manipulasi Data:** Pandas, NumPy
 * **Machine Learning:** Scikit-learn, TensorFlow (Keras), KerasTuner
